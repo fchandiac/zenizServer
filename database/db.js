@@ -1,4 +1,5 @@
 const {Sequelize, DataTypes} = require('sequelize');
+
 const db = {};
 
 // db.connection = new Sequelize(process.env.JOVEN_DB,process.env.JOVEN_DB_USER,process.env.JOVEN_DB_PASS, {host: 'localhost', dialect: "mysql"})
@@ -16,22 +17,51 @@ db.Pallets = require('./models/pallets')(db.connection, DataTypes)
 db.Storages = require('./models/storages')(db.connection, DataTypes)
 db.TraysMovements = require('./models/traysMovements')(db.connection, DataTypes)
 db.Receptions = require('./models/receptions')(db.connection, DataTypes)
-db.ReceptionsDetails = require('./models/receptionsDetails')(db.connection, DataTypes)
+db.Packs = require('./models/packs')(db.connection, DataTypes)
+db.ProducerAccounts = require('./models/producerAccounts')(db.connection, DataTypes)
+db.Advances = require('./models/advances')(db.connection, DataTypes)
+db.Customers = require('./models/customers')(db.connection, DataTypes)
+db.CustomerAccounts = require('./models/customerAccounts')(db.connection, DataTypes)
+db.Dispatchs = require('./models/dispatchs')(db.connection, DataTypes)
+db.Settlements = require('./models/settlements')(db.connection, DataTypes)
 
 
 db.Users.belongsTo(db.Profiles)
 db.Records.belongsTo(db.Users)
-db.Pallets.belongsTo(db.Varieties)
+
+
 db.Pallets.belongsTo(db.Trays)
 db.Pallets.belongsTo(db.Storages)
-db.Pallets.hasMany(db.ReceptionsDetails)
+db.Pallets.hasMany(db.Packs)
+
 db.TraysMovements.belongsTo(db.Producers)
 db.TraysMovements.belongsTo(db.Trays)
+
 db.Receptions.belongsTo(db.Varieties)
 db.Receptions.belongsTo(db.Producers)
-db.ReceptionsDetails.belongsTo(db.Receptions)
-db.ReceptionsDetails.belongsTo(db.Trays)
-db.ReceptionsDetails.belongsTo(db.Pallets)
+db.Receptions.belongsTo(db.Types)
+db.Receptions.hasMany(db.Packs)
+db.Receptions.hasMany(db.TraysMovements)
+
+
+db.Producers.hasMany(db.ProducerAccounts)
+
+db.Customers.hasMany(db.CustomerAccounts)
+
+db.Dispatchs.hasMany(db.Pallets)
+db.Dispatchs.belongsTo(db.Customers)
+//db.ProducerAccounts.belongsTo(db.Producers)
+
+
+db.Packs.belongsTo(db.Receptions)
+db.Packs.belongsTo(db.Trays)
+db.Packs.belongsTo(db.Pallets)
+
+
+db.Settlements.belongsTo(db.Producers)
+db.Settlements.hasMany(db.Receptions)
+
+db.Advances.belongsTo(db.Producers)
 
 
 module.exports = db

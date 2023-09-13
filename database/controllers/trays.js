@@ -1,5 +1,6 @@
 const {Trays} = require('../db')
 const trays = {}
+const sequelize = require('sequelize')
 
 async function create(name, weight){
     const material = await Trays.create({
@@ -27,9 +28,9 @@ async function destroy(id){
     return material
 }
 
-async function update(id, name, weight, stock){
+async function update(id, name, weight){
     const material = await Trays.update({
-        name: name, weight: weight, stock:stock
+        name: name, weight: weight
     }, {
         where:{id:id}
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
@@ -42,6 +43,8 @@ async function updateStock(id, stock){
     }, {where: {id:id}}).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return tray
 }
+
+
 
 async function findOneById(id){
     const material = await Trays.findOne({
@@ -56,6 +59,8 @@ async function findOneByName(name){
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return material
 }
+
+
 
 
 trays.create = create

@@ -21,4 +21,15 @@ router.get('/storages/findAll', (req, res) => {
     })
 })
 
+
+
+router.post('/storages/update', (req, res) => {
+    storages.update(req.body.id, req.body.name)
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
 module.exports = router

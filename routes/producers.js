@@ -5,13 +5,15 @@ const producers = require('../database/controllers/producers')
 
 
 router.post('/producers/create', (req, res) => {
-    producers.create(req.body.rut, req.body.name, req.body.phone, req.body.mail, req.body.address, req.body.type)
+    producers.create(req.body.rut, req.body.name, req.body.phone, req.body.mail, req.body.address)
         .then(data => {
             res.json(data)
         }).catch(err => {
             res.json(err)
         })
 })
+
+
 
 router.post('/producers/findOneById', (req, res) => {
     producers.findOneById(req.body.id)

@@ -33,14 +33,6 @@ router.post('/trays/destroy', (req, res) => {
     })
 })
 
-router.post('/trays/update', (req, res) => {
-    trays.update(req.body.id, req.body.name, req.body.weight, req.body.stock )
-    .then(data => {
-        res.json(data)
-    }).catch(err => {
-        res.json(err)
-    })
-})
 
 router.post('/trays/findOneById', (req, res) => {
     trays.findOneById(req.body.id)
@@ -60,8 +52,8 @@ router.post('/trays/findOneByName', (req, res) => {
     })
 })
 
-router.post('/trays/createMovement', (req,res) => {
-    traysMovements.create(req.body.quanty, req.body.type, req.body.producer_id, req.body.tray_id, req.body.stock_balance)
+router.post('/trays/update', (req, res) => {
+    trays.update(req.body.id, req.body.name, req.body.weight)
     .then(data => {
         res.json(data)
     }).catch(err => {
@@ -69,14 +61,22 @@ router.post('/trays/createMovement', (req,res) => {
     })
 })
 
-router.get('/trays/findAllMovements', (req, res) => {
-    traysMovements.findAll()
+router.post('/trays/updateStock', (req, res) => {
+    trays.updateStock(req.body.id, req.body.stock)
     .then(data => {
         res.json(data)
     }).catch(err => {
         res.json(err)
     })
 })
+
+
+
+
+
+
+
+
 
 
 

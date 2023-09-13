@@ -2,8 +2,8 @@
 const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-    class Producers extends Model { }
-    Producers.init({
+    class Customers extends Model { }
+    Customers.init({
 
         rut: { type: DataTypes.STRING },
         name: { type: DataTypes.STRING },
@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         sequelize,
-        modelName: 'Producers',
+        modelName: 'Customers',
         underscored: true
 
     })
-    return Producers
+    return Customers
 }

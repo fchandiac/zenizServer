@@ -4,3 +4,26 @@ npx sequelize-cli db:seed:all
 
 
 npm i --save escpos@3.0.0-alpha.6 escpos-usb@3.0.0-alpha.4
+
+
+// name: { type: DataTypes.STRING },
+        // delete: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // edit: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // reports: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // pallets: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // trays: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // types: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // varieties: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // producers: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // customers: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // users: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // records: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // dispatchs: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // receptions: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // advances: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // customers_accounts: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // producers_accounts: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // new_reception: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // new_dispatch: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // settlements: { type: DataTypes.BOOLEAN, defaultValue: false },
+        // auth: { type: DataTypes.BOOLEAN, defaultValue: false },

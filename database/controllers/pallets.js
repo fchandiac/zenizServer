@@ -1,12 +1,11 @@
-const { Pallets, Varieties, Trays, Storages, ReceptionsDetails } = require('../db')
+const { Pallets, Trays, Storages, Packs, Receptions, Producers, Varieties } = require('../db')
 const pallets = {}
 
 
-async function create(variety_id, tray_id, storage_id, weight){
+async function create(tray_id, storage_id, weight){
     const pallet = await Pallets.create({
         trays: 0,
         max: 240 ,
-        variety_id: variety_id,
         tray_id: tray_id,
         storage_id: storage_id,
         weight
@@ -16,6 +15,7 @@ async function create(variety_id, tray_id, storage_id, weight){
 
 async function findOneById(id){
     const pallet = await Pallets.findOne({
+        include: [{model: Trays},{model: Storages},{model: Packs, include: [{model: Trays},{ model: Receptions, include: [{model: Producers}, {model: Varieties}] }]} ],
         where:{id:id}
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return pallet
@@ -23,7 +23,7 @@ async function findOneById(id){
 
 async function findAll(){
     const pallet = await Pallets.findAll({
-        include: [{model: Varieties}, {model: Trays},{model: Storages},{model: ReceptionsDetails} ],
+        include: [{model: Trays},{model: Storages},{model: Packs, include: [{model: Trays},{ model: Receptions, include: [{model: Producers}] }]} ],
         order: [
             ['updated_at', 'DESC'],
         ]
@@ -31,17 +31,29 @@ async function findAll(){
     return pallet
 }
 
-async function findAllByVariety(variety_id){
+async function findAllByTray(tray_id){
     const pallet = await Pallets.findAll({
-        include: [{model: Varieties}, {model: Trays}, {model: Storages}],
-        where: {variety_id: variety_id}
+        // include: [{model: Trays}, {model: Storages}],
+        where: {tray_id: tray_id}
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return pallet
 }
 
 async function updateTrays(id, trays){
+    const findPallet = await Pallets.findOne({
+        where: {id:id}
+    })
     const pallet = await Pallets.update({
-        trays: trays
+        trays: trays + findPallet.trays
+    }, {where: {id:id}})
+    .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return pallet
+}
+
+async function updateDispatch(id, dispatch_id){
+    const pallet = await Pallets.update({
+        dispatch_id: dispatch_id,
+        dispatch: true
     }, {where: {id:id}})
     .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return pallet
@@ -55,11 +67,22 @@ async function updateMax(id, max){
     return pallet
 }
 
+async function update (id, max, storage_id){
+    const pallet = await Pallets.update({
+        max:max,
+        storage_id: storage_id
+    }, {where: {id:id}})
+    .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return pallet
+}
+
 pallets.create = create
-pallets.findAllByVariety = findAllByVariety
 pallets.updateTrays = updateTrays
 pallets.findAll = findAll
 pallets.findOneById = findOneById
 pallets.updateMax = updateMax
+pallets.findAllByTray = findAllByTray
+pallets.updateDispatch = updateDispatch
+pallets.update = update
 
 module.exports = pallets

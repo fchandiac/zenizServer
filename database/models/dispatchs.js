@@ -3,12 +3,9 @@
 const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-    class Receptions extends Model { }
-    Receptions.init({
-        producer_id: { type: DataTypes.INTEGER },
-        variety_id: { type: DataTypes.INTEGER },
-        type_id: { type: DataTypes.INTEGER },
-        settlement_id: { type: DataTypes.INTEGER },
+    class Dispatchs extends Model { }
+    Dispatchs.init({
+        customer_id: { type: DataTypes.INTEGER },
         guide: { type: DataTypes.INTEGER },
         clp: { type: DataTypes.INTEGER },
         usd: { type: DataTypes.FLOAT },
@@ -21,13 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         net: { type: DataTypes.FLOAT },
         to_pay: { type: DataTypes.INTEGER },
         open: { type: DataTypes.BOOLEAN },
-        settlement: { type: DataTypes.BOOLEAN },
 
     }, {
         sequelize,
-        modelName: 'Receptions',
+        modelName: 'Dispatchs',
         underscored: true
     })
-    return Receptions
+    return Dispatchs
 }
 

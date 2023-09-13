@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const types = require('../database/controllers/types')
 
-router.post('/typeFruits/create', (req,res) => {
+router.post('/types/create', (req,res) => {
     types.create(req.body.name)
     .then(data => {
         res.json(data)
@@ -20,7 +20,7 @@ router.post('/typeFruits/findOneByName', (req, res) => {
     })
 })
 
-router.get('/typeFruits/findAll', (req, res) => {
+router.get('/types/findAll', (req, res) => {
     types.findAll()
     .then(data => {
         res.json(data)
