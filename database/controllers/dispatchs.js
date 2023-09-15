@@ -55,9 +55,18 @@ async function findAllBetweenDate(start, end) {
     return dispatch
 }
 
+async function updateClose(id){
+    const dispatch = await Dispatchs.update({
+        open:0
+    }, {where:{id:id}}).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return dispatch
+}
+
 
 dispatchs.create = create
 dispatchs.findAll = findAll
 dispatchs.findAllBetweenDate = findAllBetweenDate
+dispatchs.updateClose = updateClose
 
 module.exports = dispatchs

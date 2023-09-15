@@ -41,4 +41,16 @@ router.post('/users/findOneById', (req, res) => {
 
 
 
+router.post('/users/updatePass', (req, res) => {
+    users.updatePass(req.body.id, req.body.pass)
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
+
+
+
 module.exports = router

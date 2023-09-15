@@ -63,5 +63,7 @@ db.Settlements.hasMany(db.Receptions)
 
 db.Advances.belongsTo(db.Producers)
 
+db.Records.belongsTo(db.Users)
+
 
 module.exports = db

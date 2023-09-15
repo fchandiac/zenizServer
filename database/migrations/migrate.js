@@ -603,7 +603,6 @@ module.exports = {
                         model: 'customers',
                         key: 'id'
                     },
-
                 },
                 credit: { type: Sequelize.INTEGER, defaultValue: 0 },
                 debit: { type: Sequelize.INTEGER, defaultValue: 0 },

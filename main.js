@@ -25,10 +25,11 @@ app.use(require('./routes/packs'))
 app.use(require('./routes/producerAccounts'))
 app.use(require('./routes/advances'))
 app.use(require('./routes/customers'))
-// app.use(require('./routes/customerAccounts'))
+app.use(require('./routes/customerAccounts'))
 app.use(require('./routes/dispatchs'))
 app.use(require('./routes/settlements'))
 app.use(require('./routes/traysMovements'))
+
 
 
 

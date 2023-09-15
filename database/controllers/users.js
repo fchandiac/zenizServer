@@ -36,9 +36,17 @@ async function findOneById(id){
     return _user
 }
 
+async function updatePass(id, pass){
+    const _user = await Users.update({
+        pass:pass
+    }, {where:{id:id}}).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return _user
+}
+
 users.create = create
 users.findOneByUser = findOneByUser
 users.findAll = findAll
 users.findOneById = findOneById
+users.updatePass = updatePass
 
 module.exports = users

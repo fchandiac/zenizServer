@@ -59,4 +59,15 @@ router.post('/dispatchs/findAllBetweenDate', (req, res) => {
     })
 })
 
+router.post('/dispatchs/updateClose', (req, res) => {
+    dispatchs.updateClose(req.body.id)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+
 module.exports = router

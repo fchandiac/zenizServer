@@ -1,4 +1,4 @@
-const { Producers, ProducerAccounts } = require('../db')
+const { Producers, ProducerAccounts,  } = require('../db')
 const producers = {}
 const sequelize = require('sequelize')
 
@@ -17,6 +17,7 @@ async function findAll() {
     const producer = await Producers.findAll({
         include: [
             { model: ProducerAccounts},
+    
         ]
     })
         .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })

@@ -53,11 +53,22 @@ async function destroy(id){
     return customerAccount
 }
 
+async function findLastByCustomerId(customer_id){
+    const customerAccount = await CustomerAccounts.findOne({
+        where:{customer_id:customer_id},
+        order: [
+            ['created_at', 'DESC']
+        ]
+    }).then(data => {return {'code':1, 'data':data}}).catch(err => {return {'code':0, 'data':err}})
+    return customerAccount
+}
+
 customerAccounts.create = create
 customerAccounts.findAll = findAll
 customerAccounts.findOneById = findOneById
 customerAccounts.update = update
 customerAccounts.destroy = destroy
 customerAccounts.findAllByCustomerId = findAllByCustomerId
+customerAccounts.findLastByCustomerId = findLastByCustomerId
 
 module.exports = customerAccounts

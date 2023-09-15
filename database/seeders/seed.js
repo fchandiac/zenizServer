@@ -118,22 +118,26 @@ module.exports = {
         name: 'ESPARRAGUERA',
         weight: 1.5,
         stock:100,
+        created_at: '2022-09-01 09:00:00'
       },
       {
         name: 'VERDE',
         weight: 0.35,
         stock:100,
+        created_at: '2022-09-01 09:00:00'
         
       },
       {
         name: 'NEGRA CHICA',
         weight: 0.35,
         stock:100,
+        created_at: '2022-09-01 09:00:00'
       },
       {
         name: 'BLANCA CHICA',
         weight: 0.35,
         stock:100,
+        created_at: '2022-09-01 09:00:00'
       }
     ], {})
 
