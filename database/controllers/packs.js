@@ -82,10 +82,18 @@ async function divide(idA, quantyA, quantyB){
     }
 }
 
+async function destroy(id){
+    const pack = await Packs.destroy({
+        where:{id:id}
+    }).then(data => {return {'code':1, 'data':data}}).catch(err => {return {'code':0, 'data':err}})
+
+    return pack
+}
+
 packs.create = create
 packs.updatePallet = updatePallet
 packs.divide = divide
-
+packs.destroy = destroy
 
 
 module.exports = packs

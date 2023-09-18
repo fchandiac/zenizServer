@@ -55,4 +55,15 @@ router.post('/packs/divide', (req,res) => {
 
 
 
+router.post('/packs/destroy', (req,res) => {
+    packs.destroy(
+        req.body.id
+    )
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
 module.exports = router

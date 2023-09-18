@@ -126,6 +126,17 @@ router.post('/receptions/findOneById', (req, res) => {
 
 
 
+router.post('/receptions/destroy', (req, res) => {
+    receptions.destroy(
+        req.body.id
+    )
+        .then(data => {
+            res.json(data)
+        }).catch(err => {
+            res.json(err)
+        })
+})
+
 
 
 module.exports = router

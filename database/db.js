@@ -4,7 +4,7 @@ const db = {};
 
 // db.connection = new Sequelize(process.env.JOVEN_DB,process.env.JOVEN_DB_USER,process.env.JOVEN_DB_PASS, {host: 'localhost', dialect: "mysql"})
 
-db.connection = new Sequelize('zeniz','root','Fenasantma', {host: 'localhost', dialect: "mysql"})
+db.connection = new Sequelize('zeniz','root','fenasantma', {host: 'localhost', dialect: "mysql"})
 
 db.Profiles = require('./models/profiles')(db.connection, DataTypes)
 db.Users = require('./models/users')(db.connection, DataTypes)

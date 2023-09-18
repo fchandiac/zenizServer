@@ -389,6 +389,7 @@ module.exports = {
                 settlement_id: {
                     allowNull: true,
                     unique: false,
+                    onDelete: 'SET NULL',
                     type: Sequelize.INTEGER,
                     references: {
                         model: 'settlements',
@@ -450,7 +451,7 @@ module.exports = {
                     allowNull: true,
                     unique: false,
                     type: Sequelize.INTEGER,
-                    onDelete: 'SET NULL',
+                    onDelete: 'CASCADE',
                     references: {
                         model: 'receptions',
                         key: 'id'
@@ -494,6 +495,7 @@ module.exports = {
                 allowNull: true,
                 unique: false,
                 type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
                 references: {
                     model: 'receptions',
                     key: 'id'

@@ -17,6 +17,19 @@ module.exports = {
         advance: true,
 
         created_at: '2022-08-01 05:45:12'
+      },
+      {
+        name: 'Sin permisos',
+        delete: false,
+        edit: false,
+        settlement: false,
+        new_reception: false,
+        new_dispatch: false,
+        close_reception: false,
+        close_dispatch: false,
+        advance: false,
+
+        created_at: '2022-08-01 05:45:12'
       }
     ], {})
 

@@ -136,5 +136,6 @@ receptions.findAllBetweenDates = findAllBetweenDates
 receptions.findAllByProducerBetweenDates = findAllByProducerBetweenDates
 receptions.updateSettlement = updateSettlement
 receptions.findOneById = findOneById
+receptions.destroy = destroy
 
 module.exports = receptions
