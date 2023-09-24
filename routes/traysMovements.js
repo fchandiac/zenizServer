@@ -87,4 +87,14 @@ router.post('/traysMovements/findAllByProducerByTray', (req, res) => {
 
 
 
+router.post('/traysMovements/findAllByReception', (req, res) => {
+    traysMovements.findAllByReception(req.body.reception_id)
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
+
 module.exports = router

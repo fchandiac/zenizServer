@@ -22,28 +22,7 @@ module.exports = {
                 close_reception: { type: Sequelize.BOOLEAN, defaultValue: false },
                 close_dispatch: { type: Sequelize.BOOLEAN, defaultValue: false },
                 advance: { type: Sequelize.BOOLEAN, defaultValue: false },
-                
-
-                // reports: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // pallets: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // trays: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // types: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // varieties: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // producers: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // customers: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // users: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // records: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // dispatchs: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // receptions: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // advances: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // customers_accounts: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // producers_accounts: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // new_reception: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // new_dispatch: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // settlements: { type: Sequelize.BOOLEAN, defaultValue: false },
-                // auth: { type: Sequelize.BOOLEAN, defaultValue: false },
-
-
+                users: { type: Sequelize.BOOLEAN, defaultValue: false },
 
                 created_at: { type: Sequelize.DATE },
                 updated_at: { type: Sequelize.DATE }
@@ -163,9 +142,9 @@ module.exports = {
                     type: Sequelize.INTEGER
                 },
                 name: { type: Sequelize.STRING, unique: true },
-                clp: {type: sequelize.INTEGER, defaultValue: 0},
-                usd: {type: sequelize.FLOAT, defaultValue: 0},
-                money: {type: sequelize.STRING, defaultValue: 'CLP'},
+                clp: { type: sequelize.INTEGER, defaultValue: 0 },
+                usd: { type: sequelize.FLOAT, defaultValue: 0 },
+                money: { type: sequelize.STRING, defaultValue: 'CLP' },
                 created_at: { type: Sequelize.DATE },
                 updated_at: { type: Sequelize.DATE }
             },
@@ -244,18 +223,19 @@ module.exports = {
                         key: 'id'
                     },
                 },
-                guide: { type: Sequelize.STRING, allowNull: true, defaultValue: ''},
+                guide: { type: Sequelize.STRING, allowNull: true, defaultValue: '' },
                 clp: { type: Sequelize.INTEGER, defaultValue: 0, allowNull: true },
                 usd: { type: Sequelize.FLOAT, defaultValue: 0, allowNull: true },
                 change: { type: Sequelize.INTEGER, defaultValue: 0, allowNull: true },
                 money: { type: Sequelize.STRING, defaultValue: 'CLP' },
-                trays_quanty: { type: Sequelize.INTEGER, defaultValue: 0 },
-                trays_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
+                pallets_quanty: { type: Sequelize.INTEGER, defaultValue: 0 },
+                pallets_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
                 impurity_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
                 gross: { type: Sequelize.FLOAT, defaultValue: 0 },
                 net: { type: Sequelize.FLOAT, defaultValue: 0 },
                 to_pay: { type: Sequelize.INTEGER, defaultValue: 0 },
                 open: { type: Sequelize.BOOLEAN, defaultValue: true },
+                decrease: { type: Sequelize.FLOAT, defaultValue: 0 },
                 created_at: { type: Sequelize.DATE },
                 updated_at: { type: Sequelize.DATE }
 
@@ -309,8 +289,7 @@ module.exports = {
                 weight: { type: Sequelize.FLOAT },
                 dispatch_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
                 dispatch: { type: Sequelize.BOOLEAN, defaultValue: false },
-                //DIFERENCIA ENTRE PESO DE DESPACHO Y PESO DE RECEPCION = 0
-                //ESTADO: DESPACHADO, 
+                decrease_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
                 created_at: { type: Sequelize.DATE },
                 updated_at: { type: Sequelize.DATE }
             },
@@ -319,34 +298,33 @@ module.exports = {
             }
         )
 
-       
         await queryInterface.createTable('settlements',
-        {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
-            producer_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'producers',
-                    key: 'id'
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
                 },
+                producer_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'producers',
+                        key: 'id'
+                    },
+                },
+                amount: { type: Sequelize.INTEGER, defaultValue: 0 },
+                description: { type: Sequelize.TEXT, defaultValue: '' },
+                created_at: { type: Sequelize.DATE },
+                updated_at: { type: Sequelize.DATE }
             },
-            amount: { type: Sequelize.INTEGER, defaultValue: 0 },
-            description: { type: Sequelize.TEXT, defaultValue: '' },
-            created_at: { type: Sequelize.DATE },
-            updated_at: { type: Sequelize.DATE }
-        },
-        {
-            initialAutoIncrement: 1001,
-        }
-    )
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
 
         await queryInterface.createTable('receptions',
             {
@@ -394,10 +372,10 @@ module.exports = {
                     references: {
                         model: 'settlements',
                         key: 'id'
-                    }, 
+                    },
                     defaultValue: null
                 },
-                guide: { type: Sequelize.STRING, allowNull: true},
+                guide: { type: Sequelize.STRING, allowNull: true },
                 clp: { type: Sequelize.INTEGER, defaultValue: 0, allowNull: true },
                 usd: { type: Sequelize.FLOAT, defaultValue: 0, allowNull: true },
                 change: { type: Sequelize.INTEGER, defaultValue: 0, allowNull: true },
@@ -451,7 +429,7 @@ module.exports = {
                     allowNull: true,
                     unique: false,
                     type: Sequelize.INTEGER,
-                    onDelete: 'CASCADE',
+                    onDelete:  'SET NULL',
                     references: {
                         model: 'receptions',
                         key: 'id'
@@ -474,56 +452,56 @@ module.exports = {
             }
         )
         await queryInterface.createTable('traysmovements',
-        {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
-            tray_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'trays',
-                    key: 'id'
-                }
-            },
-            reception_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'receptions',
-                    key: 'id'
-                }
-            },
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
+                },
+                tray_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'trays',
+                        key: 'id'
+                    }
+                },
+                reception_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'receptions',
+                        key: 'id'
+                    }
+                },
 
-            producer_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'producers',
-                    key: 'id'
-                }
+                producer_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'producers',
+                        key: 'id'
+                    }
+                },
+
+                quanty: { type: Sequelize.INTEGER },
+                type: { type: Sequelize.INTEGER },
+                balance: { type: Sequelize.INTEGER },
+                description: { type: Sequelize.TEXT, defaultValue: '' },
+                created_at: { type: Sequelize.DATE },
+                updated_at: { type: Sequelize.DATE }
             },
-            
-            quanty: { type: Sequelize.INTEGER },
-            type: { type: Sequelize.INTEGER },
-            balance: { type: Sequelize.INTEGER },
-            description: { type: Sequelize.TEXT, defaultValue: '' },
-            created_at: { type: Sequelize.DATE },
-            updated_at: { type: Sequelize.DATE }
-        },
-        {
-            initialAutoIncrement: 1001,
-        }
-    )
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
 
 
         await queryInterface.createTable('producer_accounts',
@@ -621,35 +599,35 @@ module.exports = {
         )
 
         await queryInterface.createTable('customer_advances',
-        {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
-            },
-            customer_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'customers',
-                    key: 'id'
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
                 },
+                customer_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'customers',
+                        key: 'id'
+                    },
 
+                },
+                amount: { type: Sequelize.INTEGER, defaultValue: 0 },
+                description: { type: Sequelize.TEXT, defaultValue: '' },
+                created_at: { type: Sequelize.DATE },
+                updated_at: { type: Sequelize.DATE }
             },
-            amount: { type: Sequelize.INTEGER, defaultValue: 0 },
-            description: { type: Sequelize.TEXT, defaultValue: '' },
-            created_at: { type: Sequelize.DATE },
-            updated_at: { type: Sequelize.DATE }
-        },
-        {
-            initialAutoIncrement: 1001,
-        }
-    )
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
 
-      
+
 
     },
     down: async (queryInterface, Sequelize) => {

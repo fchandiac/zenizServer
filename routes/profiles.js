@@ -14,7 +14,8 @@ router.post('/profiles/create', (req, res) => {
         req.body.new_dispatch,
         req.body.close_reception,
         req.body.close_dispatch,
-        req.body.advance
+        req.body.advance,
+        req.body.users
 
         ).then(data => {
             res.json(data)

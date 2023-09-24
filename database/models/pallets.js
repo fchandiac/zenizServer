@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         storage_id: { type: DataTypes.INTEGER },
         dispatch_id: { type: DataTypes.INTEGER },
         dispatch: {type: DataTypes.BOOLEAN, defaultValue: false},
+        decrease_weight: { type: DataTypes.FLOAT},
 
 
     }, {

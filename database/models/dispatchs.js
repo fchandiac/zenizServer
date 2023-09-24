@@ -11,14 +11,15 @@ module.exports = (sequelize, DataTypes) => {
         usd: { type: DataTypes.FLOAT },
         change: { type: DataTypes.INTEGER },
         money: { type: DataTypes.STRING },
-        trays_quanty: { type: DataTypes.INTEGER },
-        trays_weight: { type: DataTypes.FLOAT },
+        pallets_quanty: { type: DataTypes.INTEGER },
+        pallets_weight: { type: DataTypes.FLOAT },
         impurity_weight: { type: DataTypes.FLOAT },
         gross: { type: DataTypes.FLOAT },
         net: { type: DataTypes.FLOAT },
         to_pay: { type: DataTypes.INTEGER },
         open: { type: DataTypes.BOOLEAN },
-
+        
+        
     }, {
         sequelize,
         modelName: 'Dispatchs',

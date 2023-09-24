@@ -130,7 +130,21 @@ async function findAllByProducerByTray(tray_id, producer_id) {
     return mov
 }
 
-
+async function findAllByReception(reception_id) {
+    const mov = await TraysMovements.findAll({
+        include: [Producers, Trays],
+        where: {
+            reception_id: reception_id,
+        },
+        order: [
+            ['id', 'DESC'],
+        ]
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => {
+        console.error(err)
+        return { 'code': 0, 'data': err }
+    })
+    return mov
+}
 
 
 
@@ -145,6 +159,8 @@ traysMovements.findFirstByTrayBetweenDate = findFirstByTrayBetweenDate
 traysMovements.findOneLastByTray = findOneLastByTray
 traysMovements.findAllByTrayByProducerBetweenDate = findAllByTrayByProducerBetweenDate
 traysMovements.findAllByProducerByTray = findAllByProducerByTray
+traysMovements.findAllByReception = findAllByReception
+
 
 
 module.exports = traysMovements

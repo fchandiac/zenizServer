@@ -53,4 +53,15 @@ router.post('/users/updatePass', (req, res) => {
 
 
 
+router.post('/users/updateProfile', (req, res) => {
+    users.updateProfile(req.body.id, req.body.profile_id)
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err)
+    })
+})
+
+
+
 module.exports = router

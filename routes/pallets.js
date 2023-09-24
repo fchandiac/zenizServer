@@ -68,7 +68,7 @@ router.post('/pallets/findAllByTray', (req,res) => {
 })
 
 router.post('/pallets/updateDispatch', (req,res) => {
-    pallets.updateDispatch(req.body.id, req.body.dispatch_id)
+    pallets.updateDispatch(req.body.id, req.body.dispatch_id, req.body.dispatch_weight, req.body.decrease_weight)
     .then(data => {
         res.json(data)
     }).catch(err => {

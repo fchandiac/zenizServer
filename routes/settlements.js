@@ -3,6 +3,7 @@ const router = express.Router()
 const settlements = require('../database/controllers/settlements')
 
 
+
 router.post('/settlements/create', (req, res) => {
     settlements.create(
         req.body.producer_id,
@@ -31,6 +32,17 @@ router.post('/settlements/findAllBetweenDates', (req, res) => {
         res.json(err)
     })
 })
+
+router.post('/settlements/findOneById', (req, res) => {
+    settlements.findOneById(req.body.id)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
 
 
 module.exports = router

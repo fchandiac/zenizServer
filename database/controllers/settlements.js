@@ -18,7 +18,13 @@ async function findAll(){
 }
 
 async function findOneById(id){
-    const advance = await Settlements.findOne({where:{id:id}}).then(data => {return {'code':1, 'data':data}}).catch(err => {return {'code':0, 'data':err}})
+    const advance = await Settlements.findOne({
+        include:[
+            {model: Producers},
+            {model: Receptions, include: [{model: Packs}, {model: Varieties}, {model: Types}]}
+        ],
+        where:{id:id}
+    }).then(data => {return {'code':1, 'data':data}}).catch(err => {return {'code':0, 'data':err}})
     return advance
 }   
 

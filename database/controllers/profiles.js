@@ -22,7 +22,8 @@ async function create(
     new_dispatch,
     close_reception,
     close_dispatch,
-    advance
+    advance,
+    users
 
     
 ) {
@@ -36,6 +37,7 @@ async function create(
         close_reception: close_reception,
         close_dispatch: close_dispatch,
         advance: advance,
+        users: users
         
         
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })

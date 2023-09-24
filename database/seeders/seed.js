@@ -15,6 +15,7 @@ module.exports = {
         close_reception: true,
         close_dispatch: true,
         advance: true,
+        users: true,
 
         created_at: '2022-08-01 05:45:12'
       },
@@ -28,6 +29,7 @@ module.exports = {
         close_reception: false,
         close_dispatch: false,
         advance: false,
+        users: false,
 
         created_at: '2022-08-01 05:45:12'
       }

@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         close_reception: DataTypes.BOOLEAN,
         close_dispatch: DataTypes.BOOLEAN,
         advance: DataTypes.BOOLEAN,
+        users: DataTypes.BOOLEAN
 
 
 

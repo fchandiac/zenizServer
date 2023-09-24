@@ -50,10 +50,13 @@ async function updateTrays(id, trays){
     return pallet
 }
 
-async function updateDispatch(id, dispatch_id){
+async function updateDispatch(id, dispatch_id, dispatch_weight, decrease_weight){
     const pallet = await Pallets.update({
         dispatch_id: dispatch_id,
-        dispatch: true
+        dispatch: true,
+        dispatch_weight: dispatch_weight,
+        decrease_weight: decrease_weight
+        
     }, {where: {id:id}})
     .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return pallet
@@ -76,6 +79,15 @@ async function update (id, max, storage_id){
     return pallet
 }
 
+async function destroy(id){
+    const pallet = await Pallets.destroy({
+        where: {id:id}
+    })
+    .then(data => { return { 'code': 1, 'data': data } })
+    .catch(err => { return { 'code': 0, 'data': err } })
+    return pallet
+}
+
 pallets.create = create
 pallets.updateTrays = updateTrays
 pallets.findAll = findAll
@@ -84,5 +96,6 @@ pallets.updateMax = updateMax
 pallets.findAllByTray = findAllByTray
 pallets.updateDispatch = updateDispatch
 pallets.update = update
+pallets.destroy = destroy
 
 module.exports = pallets

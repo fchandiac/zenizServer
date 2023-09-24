@@ -10,8 +10,8 @@ router.post('/dispatchs/create', (req, res) => {
         req.body.usd,
         req.body.change,
         req.body.money,
-        req.body.trays_quanty,
-        req.body.trays_weight,
+        req.body.pallets_quanty,
+        req.body.pallets_weight,
         req.body.impurity_weight,
         req.body.gross,
         req.body.net,
@@ -36,19 +36,6 @@ router.get('/dispatchs/findAll', (req, res) => {
     })
 })
 
-async function findAllBetweenDate(start, end) {
-    const dispatch = await Dispatchs.findAll({
-        include: [{ model: Pallets }, { model: Customers }],
-        where: {
-            created_at: { [sequelize.Op.between]: [start, end] }
-        },
-        order: [
-            ['id', 'DESC'],
-        ]
-    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
-    return dispatch
-}
-
 router.post('/dispatchs/findAllBetweenDate', (req, res) => {
     dispatchs.findAllBetweenDate(req.body.start, req.body.end)
     .then(data => {
@@ -61,6 +48,37 @@ router.post('/dispatchs/findAllBetweenDate', (req, res) => {
 
 router.post('/dispatchs/updateClose', (req, res) => {
     dispatchs.updateClose(req.body.id)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+
+router.post('/dispatchs/findOneById', (req, res) => {
+    dispatchs.findOneById(req.body.id)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+
+
+router.post('/dispatchs/update', (req, res) => {
+    dispatchs.update(
+        req.body.id,
+        req.body.clp,
+        req.body.usd,
+        req.body.change,
+        req.body.money,
+        req.body.impurity_weight,
+        req.body.to_pay
+    )
     .then(data => {
         res.json(data)
     })

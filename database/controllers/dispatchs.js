@@ -1,4 +1,4 @@
-const { Dispatchs, Pallets, Customers } = require('../db.js')
+const { Dispatchs, Pallets, Customers, Packs, Trays } = require('../db.js')
 const dispatchs = {}
 const sequelize = require('sequelize')
 
@@ -9,13 +9,14 @@ async function create(
     usd,
     change,
     money,
-    trays_quanty,
-    trays_weight,
+    pallets_quanty,
+    pallets_weight,
     impurity_weight,
     gross,
     net,
     to_pay,
     open,
+
 ) {
     const dispatch = await Dispatchs.create({
         customer_id: customer_id,
@@ -24,8 +25,8 @@ async function create(
         usd: usd,
         change: change,
         money: money,
-        trays_quanty: trays_quanty,
-        trays_weight: trays_weight,
+        pallets_quanty: pallets_quanty,
+        pallets_weight: pallets_weight,
         impurity_weight: impurity_weight,
         gross: gross,
         net: net,
@@ -63,10 +64,34 @@ async function updateClose(id){
     return dispatch
 }
 
+async function findOneById(id){
+    const dispatch = await Dispatchs.findOne({
+        include: [{model: Pallets, include:[{model: Packs}, {model:Trays}]}, {model: Customers}],
+        where:{id:id}
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return dispatch
+}
+
+async function update(id, clp, usd, change, money, impurity_weight, to_pay){
+    const dispatch = await Dispatchs.update({
+        clp: clp,
+        usd: usd,
+        change: change,
+        money: money,
+        impurity_weight: impurity_weight,
+        to_pay: to_pay
+    }, {where:{id:id}}).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return dispatch
+
+}
+
 
 dispatchs.create = create
 dispatchs.findAll = findAll
 dispatchs.findAllBetweenDate = findAllBetweenDate
 dispatchs.updateClose = updateClose
+dispatchs.findOneById = findOneById
+dispatchs.update = update
 
 module.exports = dispatchs
