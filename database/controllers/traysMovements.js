@@ -146,6 +146,18 @@ async function findAllByReception(reception_id) {
     return mov
 }
 
+async function findOneById(id) {
+    const mov = await TraysMovements.findOne({
+        include: [Producers, Trays],
+        where: { id: id }
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => {
+        console.error(err)
+        return { 'code': 0, 'data': err }
+    })
+    // console.log(mov)
+    return mov
+}
+
 
 
 
@@ -160,6 +172,7 @@ traysMovements.findOneLastByTray = findOneLastByTray
 traysMovements.findAllByTrayByProducerBetweenDate = findAllByTrayByProducerBetweenDate
 traysMovements.findAllByProducerByTray = findAllByProducerByTray
 traysMovements.findAllByReception = findAllByReception
+traysMovements.findOneById = findOneById
 
 
 

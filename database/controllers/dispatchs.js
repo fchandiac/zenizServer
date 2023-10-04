@@ -72,14 +72,16 @@ async function findOneById(id){
     return dispatch
 }
 
-async function update(id, clp, usd, change, money, impurity_weight, to_pay){
+async function update(id, clp, usd, change, money, impurity_weight, to_pay, net, gross ){
     const dispatch = await Dispatchs.update({
         clp: clp,
         usd: usd,
         change: change,
         money: money,
         impurity_weight: impurity_weight,
-        to_pay: to_pay
+        to_pay: to_pay,
+        net: net,
+        gross: gross,
     }, {where:{id:id}}).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
 
     return dispatch

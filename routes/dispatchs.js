@@ -77,7 +77,9 @@ router.post('/dispatchs/update', (req, res) => {
         req.body.change,
         req.body.money,
         req.body.impurity_weight,
-        req.body.to_pay
+        req.body.to_pay,
+        req.body.net,
+        req.body.gross
     )
     .then(data => {
         res.json(data)
