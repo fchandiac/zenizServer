@@ -47,6 +47,18 @@ router.get('/customerAccounts/findAll', (req, res) => {
 
 
 
+router.post('/customerAccounts/findAllByCustomerId', (req, res) => {
+    customerAccounts.findAllByCustomerId(req.body.customer_id)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+
+
 
 
 module.exports = router

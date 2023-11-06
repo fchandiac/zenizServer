@@ -29,6 +29,7 @@ app.use(require('./routes/customerAccounts'))
 app.use(require('./routes/dispatchs'))
 app.use(require('./routes/settlements'))
 app.use(require('./routes/traysMovements'))
+app.use(require('./routes/customerAdvances'))
 
 
 

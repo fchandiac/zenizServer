@@ -24,6 +24,7 @@ db.Customers = require('./models/customers')(db.connection, DataTypes)
 db.CustomerAccounts = require('./models/customerAccounts')(db.connection, DataTypes)
 db.Dispatchs = require('./models/dispatchs')(db.connection, DataTypes)
 db.Settlements = require('./models/settlements')(db.connection, DataTypes)
+db.CustomerAdvances = require('./models/customerAdvances')(db.connection, DataTypes)
 
 
 db.Users.belongsTo(db.Profiles)
@@ -36,6 +37,7 @@ db.Pallets.hasMany(db.Packs)
 
 db.TraysMovements.belongsTo(db.Producers)
 db.TraysMovements.belongsTo(db.Trays)
+db.TraysMovements.belongsTo(db.Customers)
 
 db.Receptions.belongsTo(db.Varieties)
 db.Receptions.belongsTo(db.Producers)

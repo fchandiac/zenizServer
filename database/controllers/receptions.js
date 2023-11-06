@@ -32,6 +32,7 @@ async function create(
         trays_weight: trays_weight,
         gross: gross,
         net: net,
+        original_net: net,
         impurity_weight: impurity_weight,
         to_pay: to_pay
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })

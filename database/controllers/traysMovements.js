@@ -1,12 +1,24 @@
-const { TraysMovements, Trays, Producers } = require('../db')
+const { TraysMovements, Trays, Producers, Customers } = require('../db')
 const traysMovements = {}
 const sequelize = require('sequelize')
 
-async function create(tray_id, producer_id, reception_id, quanty, type, balance, description) {
+async function create(
+    tray_id, 
+    producer_id, 
+    reception_id, 
+    customer_id,
+    dispatch_id,
+    quanty, 
+    type, 
+    balance, 
+    description
+    ) {
     const mov = await TraysMovements.create({
         tray_id: tray_id,
         producer_id: producer_id,
         reception_id: reception_id,
+        customer_id: customer_id,
+        dispatch_id: dispatch_id,
         quanty: quanty,
         type: type,
         balance: balance,
@@ -17,7 +29,7 @@ async function create(tray_id, producer_id, reception_id, quanty, type, balance,
 
 async function findAll() {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         order: [
             ['created_at', 'DESC'],
         ]
@@ -30,7 +42,7 @@ async function findAll() {
 
 async function findAllByTrayBetweenDate(tray_id, start, end) {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         where: {
             tray_id: tray_id,
             created_at: { [sequelize.Op.between]: [start, end] }
@@ -47,7 +59,7 @@ async function findAllByTrayBetweenDate(tray_id, start, end) {
 
 async function findLastByTrayBetweenDate(tray_id, start, end) {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         where: {
             tray_id: tray_id,
             created_at: { [sequelize.Op.between]: [start, end] }
@@ -64,7 +76,7 @@ async function findLastByTrayBetweenDate(tray_id, start, end) {
 
 async function findFirstByTrayBetweenDate(tray_id, start, end) {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         where: {
             tray_id: tray_id,
             created_at: { [sequelize.Op.between]: [start, end] }
@@ -96,7 +108,7 @@ async function  findOneLastByTray(tray_id){
 
 async function findAllByTrayByProducerBetweenDate(tray_id, producer_id, start, end) {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         where: {
             tray_id: tray_id,
             producer_id: producer_id,
@@ -132,7 +144,7 @@ async function findAllByProducerByTray(tray_id, producer_id) {
 
 async function findAllByReception(reception_id) {
     const mov = await TraysMovements.findAll({
-        include: [Producers, Trays],
+        include: [Producers, Trays, Customers],
         where: {
             reception_id: reception_id,
         },

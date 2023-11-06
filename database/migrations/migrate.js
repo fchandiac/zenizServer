@@ -245,7 +245,6 @@ module.exports = {
             }
         )
 
-
         await queryInterface.createTable('pallets',
             {
                 id: {
@@ -385,6 +384,7 @@ module.exports = {
                 impurity_weight: { type: Sequelize.FLOAT, defaultValue: 0 },
                 gross: { type: Sequelize.FLOAT, defaultValue: 0 },
                 net: { type: Sequelize.FLOAT, defaultValue: 0 },
+                original_net: { type: Sequelize.FLOAT, defaultValue: 0 },
                 to_pay: { type: Sequelize.INTEGER, defaultValue: 0 },
                 open: { type: Sequelize.BOOLEAN, defaultValue: true },
                 settlement: { type: Sequelize.BOOLEAN, defaultValue: false },
@@ -451,6 +451,7 @@ module.exports = {
                 initialAutoIncrement: 1001,
             }
         )
+
         await queryInterface.createTable('traysmovements',
             {
                 id: {
@@ -490,7 +491,27 @@ module.exports = {
                         key: 'id'
                     }
                 },
-
+                dispatch_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'dispatchs',
+                        key: 'id'
+                    }
+                },
+                customer_id: {
+                    allowNull: true,
+                    unique: false,
+                    type: Sequelize.INTEGER,
+                    onDelete: 'SET NULL',
+                    references: {
+                        model: 'customers',
+                        key: 'id'
+                    }
+                },
+                
                 quanty: { type: Sequelize.INTEGER },
                 type: { type: Sequelize.INTEGER },
                 balance: { type: Sequelize.INTEGER },
@@ -502,7 +523,6 @@ module.exports = {
                 initialAutoIncrement: 1001,
             }
         )
-
 
         await queryInterface.createTable('producer_accounts',
             {

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     Dispatchs.init({
         customer_id: { type: DataTypes.INTEGER },
         guide: { type: DataTypes.INTEGER },
-        clp: { type: DataTypes.INTEGER },
+        clp: { type: DataTypes.FLOAT },
         usd: { type: DataTypes.FLOAT },
         change: { type: DataTypes.INTEGER },
         money: { type: DataTypes.STRING },
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         impurity_weight: { type: DataTypes.FLOAT },
         gross: { type: DataTypes.FLOAT },
         net: { type: DataTypes.FLOAT },
-        to_pay: { type: DataTypes.INTEGER },
+        to_pay: { type: DataTypes.FLOAT },
         open: { type: DataTypes.BOOLEAN },
         
         

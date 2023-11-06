@@ -14,7 +14,16 @@ router.get('/traysMovements/findAll', (req, res) => {
 
 
 router.post('/traysMovements/create', (req, res) => {
-    traysMovements.create(req.body.tray_id, req.body.producer_id, req.body.reception_id, req.body.quanty, req.body.type, req.body.balance, req.body.description)
+    traysMovements.create(
+        req.body.tray_id, 
+        req.body.producer_id, 
+        req.body.reception_id, 
+        req.body.customer_id,
+        req.body.dispatch_id,
+        req.body.quanty, 
+        req.body.type, 
+        req.body.balance, 
+        req.body.description)
     .then(data => {
         res.json(data)
     }).catch(err => {

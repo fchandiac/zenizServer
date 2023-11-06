@@ -35,7 +35,6 @@ module.exports = {
       }
     ], {})
 
-
     await queryInterface.bulkInsert('users', [
       {
         user: 'user',
