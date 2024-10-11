@@ -90,6 +90,9 @@ async function destroy(id){
     return pack
 }
 
+
+
+
 packs.create = create
 packs.updatePallet = updatePallet
 packs.divide = divide

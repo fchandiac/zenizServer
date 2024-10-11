@@ -39,16 +39,30 @@ async function findAllByTray(tray_id){
     return pallet
 }
 
-async function updateTrays(id, trays){
-    const findPallet = await Pallets.findOne({
-        where: {id:id}
-    })
-    const pallet = await Pallets.update({
-        trays: trays + findPallet.trays
-    }, {where: {id:id}})
-    .then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
-    return pallet
+async function updateTrays(id, trays) {
+    try {
+        // Busca el pallet por ID
+        const pallet = await Pallets.findOne({ where: { id: id } });
+
+        // Suma las nuevas bandejas
+        const newTrays = pallet.trays + parseInt(trays);
+
+        // Actualiza el número de bandejas
+        await Pallets.update(
+            { trays: newTrays },
+            { where: { id: id } }
+        );
+
+        const updated = await Pallets.findOne({where: {id:id}})
+
+        // Devuelve el resultado si todo salió bien
+        return { code: 1, data: updated };
+    } catch (err) {
+        // Manejo de errores
+        return { code: 0, data: err };
+    }
 }
+
 
 async function updateDispatch(id, dispatch_id, dispatch_weight, decrease_weight){
     const pallet = await Pallets.update({
